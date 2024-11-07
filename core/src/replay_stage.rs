@@ -1196,7 +1196,6 @@ impl ReplayStage {
                             &leader_schedule_cache,
                             &lockouts_sender,
                             &accounts_background_request_sender,
-                            &latest_root_senders,
                             &rpc_subscriptions,
                             &block_commitment_cache,
                             &mut heaviest_subtree_fork_choice,
@@ -2677,11 +2676,11 @@ impl ReplayStage {
                     }
                 }
 
-                latest_root_senders.iter().for_each(|s| {
-                    if let Err(e) = s.send(new_root) {
-                        trace!("latest root send failed: {:?}", e);
-                    }
-                });
+                // latest_root_senders.iter().for_each(|s| {
+                //     if let Err(e) = s.send(new_root) {
+                //         trace!("latest root send failed: {:?}", e);
+                //     }
+                // });
                 info!("new root {}", new_root);
             }
 
