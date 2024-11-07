@@ -1,9 +1,9 @@
 [submodule "anchor"]
 	path = anchor
-	url = https://github.com/jito-foundation/anchor.git
+	url = https://github.com/jito-foundation/anchor
 [submodule "jito-programs"]
 	path = jito-programs
-	url = https://github.com/jito-foundation/jito-programs.git
+	url = https://github.com/jito-foundation/jito-programs
 [submodule "jito-protos/protos"]
 	path = jito-protos/protos
-	url = https://github.com/jito-labs/mev-protos.git
+	url = https://github.com/jito-labs/mev-protos/
