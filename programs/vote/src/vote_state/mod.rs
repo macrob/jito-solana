@@ -2284,7 +2284,8 @@ mod tests {
                         0,
                         vote_group.1, // vote_group.1 is the slot in which the vote was cast
                         true,
-                        true
+                        true,
+                        true,
                     ),
                     Ok(())
                 );
