@@ -644,7 +644,7 @@ impl Tower {
         let vote_state = vote_account.vote_state();
         vote_state.as_ref().ok()?.last_voted_slot()
     }
-ш
+
     pub fn record_bank_vote(&mut self, bank: &Bank, pop_expired: bool) -> Option<Slot> {
         // Returns the new root if one is made after applying a vote for the given bank to
         // `self.vote_state`
