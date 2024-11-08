@@ -720,7 +720,7 @@ impl Tower {
             self.last_config_check_seconds = config_check_seconds;
 
             if let Ok(current_dir) = env::current_dir() {
-                println!("Current directory: {}", current_dir.display());
+                warn!("Current directory: {}", current_dir.display());
             }
 
             match read_to_string(&Path::new("./mostly_confirmed_threshold")) {
