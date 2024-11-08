@@ -717,6 +717,11 @@ impl Tower {
             //   the threshold vote and no validator would ever switch forks.
             warn!("Checking for change to mostly_confirmed_threshold");
             self.last_config_check_seconds = config_check_seconds;
+
+            if let Ok(current_dir) = env::current_dir() {
+                println!("Current directory: {}", current_dir.display());
+            }
+
             match read_to_string(&Path::new("./mostly_confirmed_threshold")) {
                 Ok(s) => {
                     let split = s
