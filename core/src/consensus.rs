@@ -1,3 +1,4 @@
+use std::env;
 use {crate::replay_stage::DUPLICATE_THRESHOLD, solana_sdk::feature_set};
 
 pub mod fork_choice;
