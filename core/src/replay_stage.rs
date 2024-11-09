@@ -4841,7 +4841,7 @@ impl ReplayStage {
         self.commitment_service.join()?;
         self.t_replay.join().map(|_| ())
     }
-}
+
 
 #[cfg(test)]
 pub(crate) mod tests {
