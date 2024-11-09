@@ -2632,6 +2632,7 @@ impl ReplayStage {
 
         // Track the newly voted on slots so that they can be logged
         let mut new_slots = vec![];
+
         for bank in banks.iter() {
             if bank.is_empty() {
                 datapoint_info!("replay_stage-voted_empty_bank", ("slot", bank.slot(), i64));
@@ -2639,11 +2640,10 @@ impl ReplayStage {
             new_slots.push(bank.slot());
             trace!("handle votable bank {}", bank.slot());
             let new_root = tower.record_bank_vote(bank, pop_expired);
+
             if let Some(new_root) = new_root {
                 // get the root bank before squash
                 let root_bank = bank_forks
-
-
                     .read()
                     .unwrap()
                     .get(new_root)
@@ -2707,8 +2707,7 @@ impl ReplayStage {
                             .sender
                             .send(BankNotification::NewRootedChain(new_chain))
                             .unwrap_or_else(|err| warn!("bank_notification_sender failed: {:?}", err));
-                        };
-                    }
+                    };
                 }
 
                 // latest_root_senders.iter().for_each(|s| {
@@ -2719,23 +2718,24 @@ impl ReplayStage {
                 info!("new root {}", new_root);
             }
 
+
             let mut update_commitment_cache_time = Measure::start("update_commitment_cache");
-        // Send (voted) bank along with the updated vote account state for this node, the vote
-        // state is always newer than the one in the bank by definition, because banks can't
-        // contain vote transactions which are voting on its own slot.
-        //
-        // It should be acceptable to aggressively use the vote for our own _local view_ of
-        // commitment aggregation, although it's not guaranteed that the new vote transaction is
-        // observed by other nodes at this point.
-        //
-        // The justification stems from the assumption of the sensible voting behavior from the
-        // consensus subsystem. That's because it means there would be a slashing possibility
-        // otherwise.
-        //
-        // This behavior isn't significant normally for mainnet-beta, because staked nodes aren't
-        // servicing RPC requests. However, this eliminates artificial 1-slot delay of the
-        // `finalized` confirmation if a node is materially staked and servicing RPC requests at
-        // the same time for development purposes.
+            // Send (voted) bank along with the updated vote account state for this node, the vote
+            // state is always newer than the one in the bank by definition, because banks can't
+            // contain vote transactions which are voting on its own slot.
+            //
+            // It should be acceptable to aggressively use the vote for our own _local view_ of
+            // commitment aggregation, although it's not guaranteed that the new vote transaction is
+            // observed by other nodes at this point.
+            //
+            // The justification stems from the assumption of the sensible voting behavior from the
+            // consensus subsystem. That's because it means there would be a slashing possibility
+            // otherwise.
+            //
+            // This behavior isn't significant normally for mainnet-beta, because staked nodes aren't
+            // servicing RPC requests. However, this eliminates artificial 1-slot delay of the
+            // `finalized` confirmation if a node is materially staked and servicing RPC requests at
+            // the same time for development purposes.
             let node_vote_state = (*vote_account_pubkey, tower.vote_state.clone());
             Self::update_commitment_cache(
                 bank.clone(),
