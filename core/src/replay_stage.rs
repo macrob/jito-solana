@@ -2671,7 +2671,7 @@ impl ReplayStage {
                     vote_signatures,
                     epoch_slots_frozen_slots,
                     drop_bank_sender,
-                );
+                )?;
 
                 blockstore.slots_stats.mark_rooted(new_root);
                 rpc_subscriptions.notify_roots(rooted_slots);
