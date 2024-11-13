@@ -2691,11 +2691,11 @@ impl ReplayStage {
                     }
                 }
 
-                latest_root_senders.iter().for_each(|s| {
-                    if let Err(e) = s.send(new_root) {
-                        trace!("latest root send failed: {:?}", e);
-                    }
-                });
+                // latest_root_senders.iter().for_each(|s| {
+                //     if let Err(e) = s.send(new_root) {
+                //         trace!("latest root send failed: {:?}", e);
+                //     }
+                // });
 
                 info!("new root {}", new_root);
             }
